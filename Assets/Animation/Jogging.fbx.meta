@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 88ffea945e700194d80456e17c2fe05c
+guid: 1a6080b26a7cd064ca6e8ff03800fef2
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
@@ -32,11 +32,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Falling
+      name: mixamo.com
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 136
+      lastFrame: 77
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
