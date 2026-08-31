@@ -20,16 +20,18 @@ public class Player : MonoBehaviour
     private void Update()
     {
         anim.SetFloat("moveSpeed", moveVector.magnitude);
-        transform.forward = new Vector3(moveVector.x, 0, moveVector.y);
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector3(moveVector.x, 0, moveVector.y) * moveSpeed, ForceMode.Acceleration);
         if (Physics.Raycast(transform.position, Vector3.down, 1f, floorLayerMask))
             anim.SetBool("isGrounded", true);
         else
             anim.SetBool("isGrounded", false);
+
+        Vector3 correctedInput = GetCameraBasedInput(moveVector, Camera.main);
+        rb.AddForce(correctedInput * moveSpeed, ForceMode.Acceleration);
+        anim.transform.forward = correctedInput;
     }
 
     public void Jump(InputAction.CallbackContext ctx)
@@ -45,5 +47,18 @@ public class Player : MonoBehaviour
     {
         Vector2 dir = ctx.ReadValue<Vector2>();
         moveVector = dir;
+    }
+
+    public Vector3 GetCameraBasedInput(Vector2 input, Camera camera)
+    {
+        Vector3 camRight = camera.transform.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        Vector3 camForward = camera.transform.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        return (input.x * camRight) + (input.y * camForward);
     }
 }
